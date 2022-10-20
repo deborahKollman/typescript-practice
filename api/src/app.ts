@@ -29,7 +29,7 @@ app.get('/', (req: Request, res: Response) => {
     res.send('hola typescript!');
 });
 
-app.use('/api', routes);
+app.use('/', routes);
 
 app.use((err: error, req: Request, res: Response, next: NextFunction) => {
   // eslint-disable-line no-unused-vars

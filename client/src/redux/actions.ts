@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
-const url = 'https://localhost:3001/user';
+const url = 'http://localhost:3001/user';
 
 export interface User {
     id: number;
@@ -10,22 +10,22 @@ export interface User {
 }
 
 export interface FetchUsersAction {
-    type: ActionTypes.fetchUsers;
+    type: string;
     payload: User[];
 }
 
 export enum ActionTypes{
-    fetchUsers
+    fetchUsers="FETCH_USERS"
 }
 
 
 export const fetchUsers = () => {
- return async (dispatch:Dispatch) => {
-  const response = await axios.get<User[]>(url);
-  dispatch<FetchUsersAction>({
-   type: ActionTypes.fetchUsers,
-   payload: response.data,
-  });
- };
+    return async (dispatch:Dispatch) => {
+        const response = await axios.get(url);
+        dispatch<FetchUsersAction>({
+            type: ActionTypes.fetchUsers,
+            payload: response.data,
+        });
+    };
 };
 
