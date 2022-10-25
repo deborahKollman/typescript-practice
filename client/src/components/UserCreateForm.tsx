@@ -4,13 +4,9 @@ import { Button, Form, Input } from 'antd';
 
 
 export default function UserCreateForm(){
-    const [form] = Form.useForm<{ first_name: string; last_name: string }>();
-    const firstNameValue = Form.useWatch('first_name', form);
-    const lastNameValue = Form.useWatch('last_name', form);
-
+    
     const onFinish = (values: any) => {
-        console.log('Success:', firstNameValue,lastNameValue);
-        console.log(values)
+        console.log('Success:', values);
     };
     
     const onFinishFailed = (errorInfo: any) => {
