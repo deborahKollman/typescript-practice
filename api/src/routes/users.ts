@@ -33,15 +33,15 @@ router.put('/',(req: Request, res: Response, next: NextFunction) => {
   .catch((error) => next(error));
 })
 
-router.delete('/',(req: Request, res: Response, next: NextFunction) => {
-  const id = req.query;
-  User.destroy({
-    where:id
-  })
-  .then(() => {
-  res.send('User deleted successfully');
-  })
-  .catch((error) => next(error));
+router.delete('/:id', async(req: Request, res: Response, next: NextFunction) => {
+  const id = parseInt(req.params.id);
+  const user = await User.findByPk(id)
+  if(user){
+    await user.destroy();
+    res.send('User deleted')
+  }else{
+    res.status(500).send('User not found')
+  }
 })
 
 export default router;
