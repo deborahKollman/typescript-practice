@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { User } from "../redux/actions";
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useNavigate } from "react-router-dom";
 import { HomeOutlined } from "@ant-design/icons";
 
@@ -9,7 +10,9 @@ export default function UserCreateForm(){
     const navigate = useNavigate()
     
     const onFinish = (values: any) => {
-        console.log('Success:', values);
+        axios.post('http://localhost:3001/user',{name:values.first_name,lastName:values.last_name})
+        .then(()=>message.success('User created'))
+        .catch(()=>message.error('User could not be created'))
     };
     
     const onFinishFailed = (errorInfo: any) => {
