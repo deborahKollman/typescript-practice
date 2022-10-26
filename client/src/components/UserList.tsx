@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "../redux/actions";
 import { Avatar, List } from 'antd';
+import UserDeleteOption from "./UserDeleteOption";
 
 type AppProps = {
     data: User[]
@@ -18,8 +19,9 @@ export default function UserList({data}: AppProps){
             <List.Item.Meta
               avatar={<Avatar src="https://bitsofco.de/content/images/2018/12/Screenshot-2018-12-16-at-21.06.29.png" />}
               title={<a href="#">{item.name} {item.lastName}</a>}
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+              // description="Ant Design, a design language for background applications, is refined by Ant UED Team"
             />
+            <UserDeleteOption id={item.id}/>
           </List.Item>
         )}
       />)
