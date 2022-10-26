@@ -1,5 +1,9 @@
-import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { fetchUsers} from '../redux/actions';
+import { Button, Modal, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 type AppProps = {
@@ -10,21 +14,25 @@ export default function UserDeleteOption({id}:AppProps) {
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
+  const dispatch:AppDispatch = useDispatch();
+
   const showModal = () => {
     setOpen(true);
   };
 
   const handleOk = () => {
-    console.log('id',id);
     setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
+    axios.delete(`http://localhost:3001/user/${id}`)
+        .then(()=>{message.success('User deleted');
+        dispatch(fetchUsers())})
+        .catch(()=>message.error('User could not be deleted'))
+        .finally(()=>{
+        setOpen(false);
+        setConfirmLoading(false);
+        })
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setOpen(false);
   };
 
