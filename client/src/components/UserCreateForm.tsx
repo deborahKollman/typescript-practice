@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { User } from "../redux/actions";
 import { Button, Form, Input } from 'antd';
+import { useNavigate } from "react-router-dom";
+import { HomeOutlined } from "@ant-design/icons";
 
 
 export default function UserCreateForm(){
+    const navigate = useNavigate()
     
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -18,6 +21,9 @@ export default function UserCreateForm(){
     return (
         <>
         <h1>Submit new user</h1>
+        <Button type="dashed" icon={<HomeOutlined />} size="large" onClick={()=>navigate('/')}>
+            Home
+        </Button>
         <Form
           name="basic"
           labelCol={{ span: 8 }}
