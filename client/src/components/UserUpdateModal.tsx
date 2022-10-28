@@ -1,6 +1,10 @@
-import { Button, Form, Input, Modal, Radio } from 'antd';
+import { Button, Form, Input, Modal, message } from 'antd';
 import React, { useState, useEffect } from 'react';
 import {EditOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
+import { fetchUsers} from '../redux/actions';
 
 interface Values {
   title: string;
@@ -12,12 +16,11 @@ interface CollectionCreateFormProps {
   open: boolean;
   onCreate: (values: Values) => void;
   onCancel: () => void;
-  id: number;
   name: string;
   last_name: string;
 }
 
-function UserUpdateForm({ open, onCreate, onCancel, id, name, last_name}:CollectionCreateFormProps){
+function UserUpdateForm({ open, onCreate, onCancel, name, last_name}:CollectionCreateFormProps){
   const [form] = Form.useForm();
   React.useEffect(() => {
     form.setFieldsValue({
@@ -38,7 +41,6 @@ function UserUpdateForm({ open, onCreate, onCancel, id, name, last_name}:Collect
           .validateFields()
           .then(values => {
             form.resetFields();
-            console.log(values)
             onCreate(values);
           })
           .catch(info => {
@@ -78,10 +80,20 @@ interface UserUpdateModal{
 
 export default function UserUpdateModal({id, name, last_name}:UserUpdateModal){
   const [open, setOpen] = useState(false);
+  const dispatch:AppDispatch = useDispatch()
 
   const onCreate = (values: any) => {
-    console.log('Received values of form: ', values);
     setOpen(false);
+    axios.put(`http://localhost:3001/user/${id}`,{...values})
+      .then((response)=>{
+        if(response.status===200){
+          message.success(response.data);}
+          else{
+          message.error(response.data)
+        }
+      dispatch(fetchUsers())})
+      .catch(()=>message.error('User could not be updated'))
+      
   };
 
   return (
@@ -100,7 +112,6 @@ export default function UserUpdateModal({id, name, last_name}:UserUpdateModal){
         onCancel={() => {
           setOpen(false);
         }}
-        id={id}
         name={name}
         last_name={last_name}
       />
