@@ -24,7 +24,6 @@ router.put('/:id',async(req: Request, res: Response, next: NextFunction) => {
   try {
     const id:number = parseInt(req.params.id);
     const user:User = req.body;
-    console.log(id,user)
     const userFound = await User.findByPk(id)
     if(userFound){
       await userFound.update(user,{
