@@ -20,27 +20,38 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
     .catch((error) => next(error));
 });
 
-router.put('/',(req: Request, res: Response, next: NextFunction) => {
-  const user = req.body;
-  const id = req.query;
-  console.log(req.body,req.query)
-  User.update(user,{
-    where:id
-  })
-  .then(() => {
-  res.send('User updated successfully');
-  })
-  .catch((error) => next(error));
+router.put('/:id',async(req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id:number = parseInt(req.params.id);
+    const user:User = req.body;
+    console.log(id,user)
+    const userFound = await User.findByPk(id)
+    if(userFound){
+      await userFound.update(user,{
+        where:{id:id}
+      });
+      res.send('User updated')
+    }else{
+      res.status(500).send('User not found')
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+  
 })
 
 router.delete('/:id', async(req: Request, res: Response, next: NextFunction) => {
-  const id = parseInt(req.params.id);
+  try {
+    const id = parseInt(req.params.id);
   const user = await User.findByPk(id)
   if(user){
     await user.destroy();
     res.send('User deleted')
   }else{
     res.status(500).send('User not found')
+  }
+  } catch (error) {
+    res.status(500).send(error)
   }
 })
 
