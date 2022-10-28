@@ -2,6 +2,7 @@ import React from "react";
 import { User } from "../redux/actions";
 import { Avatar, List } from 'antd';
 import UserDeleteOption from "./UserDeleteOption";
+import UserUpdateModal from "./UserUpdateModal";
 
 type AppProps = {
     data: User[]
@@ -22,6 +23,7 @@ export default function UserList({data}: AppProps){
               // description="Ant Design, a design language for background applications, is refined by Ant UED Team"
             />
             <UserDeleteOption id={item.id}/>
+            <UserUpdateModal id={item.id} name={item.name} last_name={item.lastName} />
           </List.Item>
         )}
       />)
