@@ -23,7 +23,12 @@ export default function UserDeleteOption({id}:AppProps) {
   const handleOk = () => {
     setConfirmLoading(true);
     axios.delete(`http://localhost:3001/user/${id}`)
-        .then(()=>{message.success('User deleted');
+        .then((response)=>{
+          if(response.status===200){
+            message.success(response.data);}
+            else{
+            message.error(response.data)
+          }
         dispatch(fetchUsers())})
         .catch(()=>message.error('User could not be deleted'))
         .finally(()=>{
