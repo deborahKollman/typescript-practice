@@ -3,18 +3,13 @@
 import { Document, model, Schema } from "mongoose";
 
 export interface IUser extends Document{
-    id: number,
     name: string,
     lastName: string
 }
 
 const userSchema: Schema = new Schema(
     {
-        id:{
-            type: Number,
-            required: true,
-        },
-
+        
         name: {
             type: String,
             required: true,
