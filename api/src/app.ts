@@ -26,7 +26,7 @@ interface error {
 }
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('hola typescript!');
+    res.send('Welcome!');
 });
 
 app.use('/', routes);
