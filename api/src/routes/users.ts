@@ -7,7 +7,7 @@ const router = Router()
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users : IUser[] = await User.find()
-    res.status(200).json({users})
+    res.status(200).json(users)
   } catch (error) {
     throw error
   }
@@ -24,9 +24,9 @@ router.post('/', async(req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.put('/', async(req: Request, res: Response, next: NextFunction) => {
+router.put('/:id', async(req: Request, res: Response, next: NextFunction) => {
   try {
-    const id:number = parseInt(req.params.id);
+    const id:string = req.params.id;
     const user: IUser = req.body;
     await User.findByIdAndUpdate({ _id: id },user)
     res.status(200).send('User updated')
@@ -35,9 +35,9 @@ router.put('/', async(req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.delete('/', async(req: Request, res: Response, next: NextFunction) => {
+router.delete('/:id', async(req: Request, res: Response, next: NextFunction) => {
   try {
-    const id:number = parseInt(req.params.id);
+    const id:string = req.params.id;
     await User.findByIdAndDelete(id)
     res.status(200).send('User deleted')
   } catch (error) {

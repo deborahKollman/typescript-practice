@@ -15,7 +15,7 @@ const userSchema: Schema = new Schema(
             required: true,
         },
 
-        description: {
+        lastName: {
             type: String,
             required: true,
         },
