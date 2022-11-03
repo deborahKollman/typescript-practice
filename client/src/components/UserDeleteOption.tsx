@@ -7,7 +7,7 @@ import { Button, Modal, message } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 
 type AppProps = {
-    id: number
+    id: string
 }
 
 export default function UserDeleteOption({id}:AppProps) {

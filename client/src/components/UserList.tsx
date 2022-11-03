@@ -22,8 +22,8 @@ export default function UserList({data}: AppProps){
               title={<a href="#">{item.name} {item.lastName}</a>}
               // description="Ant Design, a design language for background applications, is refined by Ant UED Team"
             />
-            <UserDeleteOption id={item.id}/>
-            <UserUpdateModal id={item.id} name={item.name} last_name={item.lastName} />
+            <UserDeleteOption id={item._id}/>
+            <UserUpdateModal id={item._id} name={item.name} last_name={item.lastName} />
           </List.Item>
         )}
       />)

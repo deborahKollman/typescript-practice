@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 const url = 'http://localhost:3001/user';
 
 export interface User {
-    id: number;
+    _id: string;
     name: string;
     lastName: string;
 }

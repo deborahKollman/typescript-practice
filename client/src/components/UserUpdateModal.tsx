@@ -73,7 +73,7 @@ function UserUpdateForm({ open, onCreate, onCancel, name, last_name}:CollectionC
 };
 
 interface UserUpdateModal{
-    id: number;
+    id: string;
     name: string;
     last_name: string;
   }
