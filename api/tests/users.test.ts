@@ -61,3 +61,22 @@ describe("PUT /user ",()=>{
         expect(updatedUser?.lastName).toBe("Gomez")        
     })
 })
+describe("DELETE /user",()=>{
+    it("should NOT delete user if id is invalid",async()=>{
+        const res = await request.delete("/user/1234");
+        expect(res.statusCode).toBe(BAD_REQUEST);
+    })
+    it("should NOT delete user if user does not exist",async()=>{
+        const user = new User({name:"Juliana",lastName:"Gutierrez"})
+        await user.save();
+        await User.findByIdAndDelete(user._id)
+        const res = await request.delete(`/user/${user._id}`);
+        expect(res.statusCode).toBe(NOT_FOUND);
+    })
+    it("should delete user if valid id is sent",async()=>{
+        const user = new User({name:"Juliana",lastName:"Gutierrez"})
+        await user.save();
+        const res = await request.delete(`/user/${user._id}`);
+        expect(res.statusCode).toBe(OK);
+    })
+})
