@@ -25,11 +25,43 @@ interface error {
   message: string;
 }
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
     res.send('Welcome!');
 });
 
 app.use('/', routes);
+
+app.get('*', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(404).send('NOT FOUND');
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.post('*', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(404).send('NOT FOUND');
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.put('*', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(404).send('NOT FOUND');
+  } catch (error) {
+    next(error)
+  }
+})
+
+app.delete('*', (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(404).send('NOT FOUND');
+  } catch (error) {
+    next(error)
+  }
+})
 
 app.use((err: error, req: Request, res: Response, next: NextFunction) => {
   // eslint-disable-line no-unused-vars
